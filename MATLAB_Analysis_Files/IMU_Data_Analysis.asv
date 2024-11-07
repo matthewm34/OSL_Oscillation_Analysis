@@ -1,0 +1,50 @@
+%% ME 6404 TEAM 6: OSL Prosthesis Dynamics Analysis
+% Date: November 6, 2024
+% 
+% NOTE: Make sure to run from the OSL_Oscillation_Analysis folder
+clear all; close all;
+
+parent_folder_name = 'Converted_CSV_Data_Collection_2';
+% fns = {'1100ms800mmTeam5.csv', 'ZV_1100ms800mmTeam5.csv',...
+%        '1600ms800mmTeam5.csv', 'ZV_1600ms800mmTeam5.csv',... 
+%        '2000ms800mmTeam5.csv', 'ZV_2000ms800mmTeam5.csv'};
+
+
+
+% files = {'knee_K2.5B0.2_1.csv','knee_K2.5B0.15_2.csv','knee_K2.5B0.2_3.csv','knee_K2.5B0.2_4.csv'}
+% 
+% csv_folders = {'knee_K2.5B0.2', 'knee_K2.5B0.15', 'knee_K2.5B0.2',...
+%                'knee_K2.0B0.1', 'knee_K1.5B0.2'};
+                
+folders_struct = dir(parent_folder_name);
+% full_filepath = [dir + '/' + fns{}];
+for i = 3:length(folders_struct) %loop through folders
+
+    cur_folder_name = folders_struct(i).name;
+
+    filename_struct = dir([parent_folder_name '/' cur_folder_name]);
+
+    for j = 3:length(filename_struct) %loop through files
+        cur_filename = filename_struct(j).name;
+
+        % Read data as a table
+        dataTable = readtable([parent_folder_name  '/'  cur_folder_name '/' cur_filename]);
+    
+        % Extract relevant columns
+        foot_accelX = dataTable.foot_accelX;
+        foot_accelY = dataTable.foot_accelY;
+        foot_accelZ = dataTable.foot_accelZ;
+    
+        knee_theta = dataTable.knee_theta;
+        knee_thetadot = dataTable.knee_thetadot;
+        figure();
+        plot([0:1:length(foot_accelX)-1],foot_accelX)
+        xlabel('Digital Time Steps (k)'); ylabel('foot_accelX');
+        title([cur_filename]);
+        
+        test = 0;
+
+    end
+
+    close all;
+end
