@@ -29,7 +29,7 @@ for i = 3:length(folders_struct) %loop through folders
         plot([0:1:length(foot_accelY)-1],foot_accelY)
         xlabel('Digital Time Steps (k)'); ylabel('foot_accelY');
         title([cur_filename]);
-
+        test = 0;
     end
     printf('Press any key to plot next data set');pause; % analyze plots wait until keypress to continue
     close all;
