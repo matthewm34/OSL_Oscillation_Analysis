@@ -21,7 +21,7 @@ import joblib as jb
 # loadfileDir = workspace_path + '/PILOT_HK_2024.Oct.21/'
 loadfileDir = workspace_path + '/Raw_Bag_Data_Collection_1/'
 # csvDir = workspace_path + loadfileDir + '/OSL_CSVs/'
-csvDir = workspace_path 
+csvDir = workspace_path + '/Converted_CSV_Data_Collection_2/'
 
 
 # Check if directory exists, and if not, create it
@@ -50,7 +50,7 @@ for b in range(0, len(bagfilelist)):
     target_bag = loadfileDir + bagfilelist[b]
     topic_list = checkTopics(target_bag)
     loaded_bag = useful_functions.OSL_Slope_Offline_bagProc_Functions.read2var2(target_bag, topic_list)
-
+    
     #2. Split data into gait cycles
     FSM = loaded_bag["/fsm/State"]
     FSM_states = FSM['state']
@@ -60,13 +60,14 @@ for b in range(0, len(bagfilelist)):
     #3. Collect Early Stances
     FSM_ES_idx = []
     for f in range(0, len(FSM_states)):
-        if 'EarlyStance' in FSM_states[f]:
+        # if 'EarlyStance' in FSM_states[f]:
+        if 'LateStance' in FSM_states[f]:
             FSM_ES_idx.append(f)
 
     #4. Go Through Pairs of Early Stances
     for ff in range(1, len(FSM_ES_idx) - 1):
-
-
+        
+        
         prev_ES_mode = FSM_states[FSM_ES_idx[ff] - 1].split("_")[0]
         start_ES_mode = FSM_states[FSM_ES_idx[ff]].split("_")[0]
         end_ES_mode = FSM_states[FSM_ES_idx[ff + 1]].split("_")[0]
@@ -85,6 +86,9 @@ for b in range(0, len(bagfilelist)):
         print(loaded_bag['/SensorData'].keys())
         # slope = loaded_bag['/fsm/context']['svalue'][0] # COMMENTED OUT BECAUSE JUST WANT SENSOR DATA
         csv_dict = {}
+
+        
+
 
         ''' COMMENTED OUT BECAUSE JUST WANT SENSOR DATA
 
