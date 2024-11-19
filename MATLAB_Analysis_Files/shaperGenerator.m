@@ -9,8 +9,8 @@ clc;
 close all;
 
 %Load data - CHANGE THIS TO THE FILENAME
-lengthVec = 100;
-k = 0.2;
+lengthVec = 35;
+k = 1.5;
 b = 0.2;
 
 vecOnes = [ones(lengthVec,1)];
@@ -40,13 +40,6 @@ ZV_shaper = [1/(1+K) K/(1+K);0 .5*T]
 %ZVD Shaper
 % % ZVD_shaper = [1/(1+K)^2 2*K/(1+K)^2 K^2/(1+K)^2;0 .5*T T];
 
-% shape impulse
-initial_impulse = vecOnes;
-
-% convolve impulse with zv shaper to get set of commands to send crane
-% % % % ZV_commands = combine_shapers(initial_impulse, ZV_shaper)
-% % EI_commands = combine_shapers(initial_impulse, EI_shaper)
-
 
 vec_unshaped = [vecOnes, t]';
 vecShaped = combine_shapers(vec_unshaped, ZV_shaper);
@@ -54,39 +47,28 @@ vecShaped = combine_shapers(vec_unshaped, ZV_shaper);
 vecShaped = vecShaped(:,h)';
 vecShaped = round(vecShaped,4);
 
-% velz_unshaped = [velz, t]';
-% velz = combine_shapers(velz_unshaped,two_mode_EI);
-% [~,h] = sort(velz(2,:));
-% velz = velz(:,h)';
-% velz = round(velz,4);
 
 shaperVec = ShapedInput(vecShaped,dt);
-shaperVecAmplitudes = shaperVec(:,1)
-shaperVecTimes = shaperVec(:,2)
-
-%result_z(:,1) = round(result_z(:,1));
-
-%result_z (end, :) = [];  % Remove the last row
-
-%THIS IS WHAT YOU SHOULD PASTE INTO THE SECOND COLUMN, STARTING WITH ROW 5
-% overall_result = [shaperVec(:,1)];
+shaperVecAmplitudes = shaperVec(:,1);
+shaperVecTimes = shaperVec(:,2);
+shaperVec = [shaperVecTimes, shaperVecAmplitudes]
 
 
-kShaped = k * shaperVec;
-bShaped = b * shaperVec;
+kShaped = [shaperVecTimes, k * shaperVecAmplitudes]
+bShaped = [shaperVecTimes, b * shaperVecAmplitudes]
 
 plot(shaperVecTimes, shaperVecAmplitudes)
 
 
-%% Shaper Length Exceeded
-%initialization
-shaperIndCount = 0;
-
-% during iterations of k and b / torque calcs
-shaperInd = shaperInd++;
-shaperLength = 100;
-if(shaperIndCount > shaperLength){
-    shaperVal = shaperVal(end);
-    }
-  
+% %% Shaper Length Exceeded
+% %initialization
+% shaperIndCount = 0;
+% 
+% % during iterations of k and b / torque calcs
+% shaperInd = shaperInd++;
+% shaperLength = lengthVec * 2;
+% if(shaperIndCount > shaperLength){
+%     shaperVal = shaperVal(end);
+%     }
+% 
 
