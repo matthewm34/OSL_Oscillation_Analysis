@@ -1,4 +1,5 @@
 # Code Outline for Convolving ZV Shaper in real time
+    # designed to shape the torque only during the swing phase of the OSL
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -27,18 +28,19 @@ Amplitude_2 = .5
 time_delay = 9  
 
 # Convolution initialization parameters
-time_step = 0 
-buffer = np.zeros(1000) # make sure buffer is at least of length: max(time_step) + (time_delay)  
-shaped_torque_output_vec = []
+time_step = 0                   # first time step of the swing phase should be indexed as 0
+buffer = np.zeros(1000)         # make sure buffer is at least of length: max(time_step) + (time_delay)  
+shaped_torque_output_vec = []   #only for plotting
 
 
 # SIMULATION:
 # Simulate the OSl code running and developing a torque each timestep (in real time)
 for cur_torque in torque_vec:
-    
-    torque_output = convolve(cur_torque,time_step)
-    time_step = time_step + 1
-    shaped_torque_output_vec.append(torque_output)
+
+    # in OSL code check if (in swing phase) -> then run this code and shape torque
+    torque_output = convolve(cur_torque,time_step)   # calculated the shaped torque
+    time_step = time_step + 1                        # increase time_step
+    shaped_torque_output_vec.append(torque_output)   # only for plotting 
 
 
 # plotting shaped torque result 
