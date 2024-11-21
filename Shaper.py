@@ -30,7 +30,7 @@ time_delay = 9
 # Convolution initialization parameters
 time_step = 0                   # first time step of the swing phase should be indexed as 0
 buffer = np.zeros(1000)         # make sure buffer is at least of length: max(time_step) + (time_delay)  
-shaped_torque_output_vec = []   #only for plotting
+shaped_torque_output_vec = []   # only for plotting 
 
 
 # SIMULATION:
