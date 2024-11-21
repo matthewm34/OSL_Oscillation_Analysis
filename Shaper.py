@@ -3,8 +3,6 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib
-import useful_functions
 
 # Example torque curve (torque_vec) and timesteps_vec (don't need these for real time implimentation, only used for simulation)
 x = np.arange(0,100,1)                           
