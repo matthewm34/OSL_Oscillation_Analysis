@@ -28,8 +28,8 @@ def convolve_EI(cur_k,time_step):
 Amplitude_1 = .25
 Amplitude_2 = .5
 Amplitude_3 = .25
-time_delay1 = 10  
-time_delay2 = 20
+time_delay1 = 9  
+time_delay2 = 19
 
 # Convolution initialization parameters
 time_step = 0                   # first time step of the swing phase should be indexed as 0
