@@ -4,6 +4,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# kVec = [];
+# bVec = [];
+# torqueVec = [];
+
+# kVec = [kVec, k];
+# bVec = [bVec, b];
+# torqueVec = [torqueVec, torque];
+
 # Example torque curve (torque_vec) and timesteps_vec (don't need these for real time implimentation, only used for simulation)
 x = np.arange(0,100,1)                           
 torque_vec = np.concatenate((np.ones(len(x)), np.zeros(50))) # pretend the torque vec is unit step function
