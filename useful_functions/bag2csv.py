@@ -19,9 +19,9 @@ import scipy.interpolate as itpd
 import joblib as jb
 
 # loadfileDir = workspace_path + '/PILOT_HK_2024.Oct.21/'
-loadfileDir = workspace_path + '/Raw_Bag_Data_Collection_1/'
+loadfileDir = workspace_path + '/Raw_Bag_Data_Collection_2_2/'
 # csvDir = workspace_path + loadfileDir + '/OSL_CSVs/'
-csvDir = workspace_path + '/Converted_CSV_Data_Collection_2/'
+csvDir = workspace_path + '/Shaped_Converted_CSV_Data_Collection_2/'
 
 
 # Check if directory exists, and if not, create it
@@ -61,7 +61,7 @@ for b in range(0, len(bagfilelist)):
     FSM_ES_idx = []
     for f in range(0, len(FSM_states)):
         # if 'EarlyStance' in FSM_states[f]:
-        if 'LateStance' in FSM_states[f]:
+        if 'EarlyStance' in FSM_states[f]:
             FSM_ES_idx.append(f)
 
     #4. Go Through Pairs of Early Stances
